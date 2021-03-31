@@ -7,18 +7,24 @@ import {
 } from '@react-navigation/drawer';
 import Home from '../pages/Home';
 import About from '../pages/About';
+import {useModal} from '../contexts/SettingModalContext';
 
 const Drawer = createDrawerNavigator();
 
-const Navigator = () => {
+const Navigator = props => {
+  const {setShowModal} = useModal();
   return (
     <Drawer.Navigator
       initialRouteName="Home"
       drawerPosition="right"
-      drawerContent={DrawerContent}
+      drawerContent={items => {
+        const pros = {setShowModal, ...items};
+        return <DrawerContent {...pros} />;
+      }}
       drawerContentOptions={{
         activeTintColor: 'black',
-      }}>
+      }}
+      screenProps={{setModalVisible: props.setModalVisible}}>
       <Drawer.Screen
         name="Home"
         component={Home}
@@ -33,21 +39,22 @@ const Navigator = () => {
   );
 };
 
-const DrawerContent = props => (
-  <DrawerContentScrollView {...props}>
-    <DrawerItemList {...props} />
-    <DrawerItem
-      label="home"
-      labelStyle={{
-        textAlign: 'center'
-      }}
-      style={{
-        justifyContent: 'center',
-      }}
-      onPress={() => props.navigation.navigate('About')}
-    />
-    <DrawerItem label="home" />
-  </DrawerContentScrollView>
-);
+const DrawerContent = props => {
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <DrawerItem
+        label="Settings"
+        labelStyle={{
+          textAlign: 'center',
+        }}
+        style={{
+          justifyContent: 'center',
+        }}
+        onPress={() => props.setShowModal(true)}
+      />
+    </DrawerContentScrollView>
+  );
+};
 
 export default Navigator;
