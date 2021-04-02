@@ -1,12 +1,15 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 
-const Ham = () => {
+const Ham = ({color}) => {
+  const backgroundColor = {
+    backgroundColor: color,
+  }
   return (
     <View style={styles.container}>
-      <View style={styles.line} />
-      <View style={styles.line} />
-      <View style={styles.line} />
+      <View style={[styles.line, backgroundColor]} />
+      <View style={[styles.line, backgroundColor]} />
+      <View style={[styles.line, backgroundColor]} />
     </View>
   );
 };
@@ -19,7 +22,6 @@ const styles = StyleSheet.create({
   line: {
     height: 5,
     width: '100%',
-    backgroundColor: 'black',
     marginVertical: 3,
   },
 });

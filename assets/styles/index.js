@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   defaultMargin: {
-    marginHorizontal: 30,
-    marginVertical: 10,
+    paddingHorizontal: 30,
+    paddingVertical: 30,
   },
   justifyCenter: {
     justifyContent: 'center',

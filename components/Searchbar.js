@@ -7,18 +7,27 @@ import {
   Image,
 } from 'react-native';
 
-const Searchbar = ({word, setWord, searchWord}) => {
+const Searchbar = ({word, setWord, searchWord, theme}) => {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
     <View
       style={[
         styles.searchContainer,
-        isFocused === true ? styles.focused : styles.blurred,
+        isFocused === true
+          ? {
+              borderStyle: 'solid',
+              borderColor: theme.value?.accent,
+            }
+          : {
+              borderStyle: 'dashed',
+              borderColor: theme.value?.text,
+            },
       ]}>
       <TextInput
-        style={[styles.searchBar]}
+        style={[styles.searchBar, {color: theme.value?.text}]}
         placeholder="Search"
+        placeholderTextColor={`${theme.value?.text}44`}
         onChangeText={text => setWord(text)}
         onKeyPress={event => {
           if (event.key === 'Enter') {
@@ -41,8 +50,9 @@ const Searchbar = ({word, setWord, searchWord}) => {
 
 const styles = StyleSheet.create({
   searchContainer: {
-    paddingHorizontal: 10,
-    borderWidth: 2,
+    marginTop: 20,
+    paddingHorizontal: 12,
+    borderWidth: 3,
     borderRadius: 1,
     flexDirection: 'row',
     alignItems: 'center',
@@ -56,7 +66,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
   },
   searchBar: {
-    paddingVertical: 8,
+    paddingVertical: 15,
     fontSize: 16,
     flex: 1,
   },

@@ -1,26 +1,18 @@
 import React from 'react';
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItem,
-  DrawerItemList,
-} from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import Home from '../pages/Home';
 import About from '../pages/About';
-import {useModal} from '../contexts/SettingModalContext';
+import Settings from '../pages/Settings';
+import {useTheme} from '../contexts/ThemeContext';
 
 const Drawer = createDrawerNavigator();
 
 const Navigator = props => {
-  const {setShowModal} = useModal();
+  const {currentTheme} = useTheme();
   return (
     <Drawer.Navigator
       initialRouteName="Home"
       drawerPosition="right"
-      drawerContent={items => {
-        const pros = {setShowModal, ...items};
-        return <DrawerContent {...pros} />;
-      }}
       drawerContentOptions={{
         activeTintColor: 'black',
       }}
@@ -28,6 +20,7 @@ const Navigator = props => {
       <Drawer.Screen
         name="Home"
         component={Home}
+        initialParams={{theme: currentTheme}}
         options={{drawerLabel: 'Home'}}
       />
       <Drawer.Screen
@@ -35,25 +28,12 @@ const Navigator = props => {
         component={About}
         options={{drawerLabel: 'About'}}
       />
-    </Drawer.Navigator>
-  );
-};
-
-const DrawerContent = props => {
-  return (
-    <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props} />
-      <DrawerItem
-        label="Settings"
-        labelStyle={{
-          textAlign: 'center',
-        }}
-        style={{
-          justifyContent: 'center',
-        }}
-        onPress={() => props.setShowModal(true)}
+      <Drawer.Screen
+        name="Settings"
+        component={Settings}
+        options={{drawerLabel: 'Settings'}}
       />
-    </DrawerContentScrollView>
+    </Drawer.Navigator>
   );
 };
 

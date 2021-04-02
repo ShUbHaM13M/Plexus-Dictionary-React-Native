@@ -14,7 +14,6 @@ const Home = ({navigation}) => {
   const [error, setError] = useState(null);
 
   const {currentTheme} = useTheme();
-  console.log(currentTheme);
 
   const searchWord = async () => {
     resetStates();
@@ -42,10 +41,16 @@ const Home = ({navigation}) => {
         globalStyles.fullHeight,
         globalStyles.defaultMargin,
         styles.container,
+        {backgroundColor: currentTheme.value?.backgroundColor},
       ]}>
-      <Header navigation={navigation} />
+      <Header navigation={navigation} theme={currentTheme} />
       <View style={globalStyles.fullHeight}>
-        <Searchbar word={word} setWord={setWord} searchWord={searchWord} />
+        <Searchbar
+          word={word}
+          setWord={setWord}
+          searchWord={searchWord}
+          theme={currentTheme}
+        />
 
         {error && !loading && (
           <View>

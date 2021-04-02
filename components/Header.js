@@ -3,7 +3,12 @@ import {View, Text, Image, Pressable, StyleSheet} from 'react-native';
 import globalStyles from '../assets/styles';
 import Ham from './Ham';
 
-const Header = ({navigation}) => {
+const Header = ({navigation, theme}) => {
+  const logoTextStyle = {
+    color: theme.value?.text,
+    fontSize: 16,
+  };
+
   return (
     <View style={styles.header}>
       <View style={styles.logo}>
@@ -12,12 +17,12 @@ const Header = ({navigation}) => {
           source={require('../assets/images/owlReadingBook.png')}
         />
         <View style={globalStyles.justifyCenter}>
-          <Text>Plexus</Text>
-          <Text>Dictionary</Text>
+          <Text style={logoTextStyle}>Plexus</Text>
+          <Text style={logoTextStyle}>Dictionary</Text>
         </View>
       </View>
       <Pressable onPress={() => navigation.openDrawer()}>
-        <Ham />
+        <Ham color={theme.value?.accent} />
       </Pressable>
     </View>
   );
@@ -34,8 +39,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   image: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     marginRight: 10,
   },
 });

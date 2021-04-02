@@ -29,6 +29,19 @@ const retro = {
   accent: turquiose,
 };
 
-const theme = {light, dark, retro};
+const theme = {
+  lightTheme: {
+    label: 'Light',
+    value: {...light},
+  },
+  darkTheme: {
+    label: 'Dark',
+    value: {...dark},
+  },
+  retroTheme: {
+    label: 'Retro',
+    value: {...retro},
+  },
+};
 
 export default theme;
