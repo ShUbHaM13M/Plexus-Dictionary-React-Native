@@ -4,26 +4,35 @@ import Card from './Card';
 import Divider from './Divider';
 import globalStyles from '../assets/styles';
 
-const Definition = ({item}) => {
+const Definition = ({item, theme}) => {
+  const textColor = {
+    color: theme.value?.text,
+  };
+  const borderColor = {
+    borderColor: theme.value?.borderColor,
+  };
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, borderColor]}>
       <View style={styles.wrapper}>
-        <Text style={[styles.word, globalStyles.fontMinecraft]}>
+        <Text style={[styles.word, globalStyles.fontMinecraft, textColor]}>
           {item.word}
         </Text>
-        <Text style={[styles.pronunciation, globalStyles.fontMinecraft]}>
+        <Text
+          selectionColor={theme.value?.accent}
+          selectable
+          style={[styles.pronunciation, globalStyles.fontMinecraft, textColor]}>
           Pronounced as: {item.pronunciation}
         </Text>
-        <Divider />
+        <Divider color={theme.value?.borderColor} />
       </View>
-      <Card item={item} />
+      <Card item={item} theme={theme} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    borderColor: '#000',
     borderWidth: 3,
     marginTop: 20,
     padding: 16,
@@ -33,12 +42,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   word: {
-    fontSize: 20,
+    fontSize: 22,
     textAlign: 'center',
-    marginVertical: 10,
+    marginVertical: 15,
   },
   pronunciation: {
-    fontSize: 16,
+    fontSize: 18,
+    marginBottom: 10,
   },
   wrapper: {
     width: '90%',

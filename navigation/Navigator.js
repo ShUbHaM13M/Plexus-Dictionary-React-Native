@@ -14,7 +14,23 @@ const Navigator = props => {
       initialRouteName="Home"
       drawerPosition="right"
       drawerContentOptions={{
-        activeTintColor: 'black',
+        activeTintColor: currentTheme.value?.text,
+        inactiveTintColor: currentTheme.value?.text,
+        activeBackgroundColor: currentTheme.value?.accent,
+        contentContainerStyle: {
+          backgroundColor: currentTheme.value?.backgroundColor,
+          flex: 1,
+          paddingTop: 60,
+        },
+        itemStyle: {
+          minHeight: 70,
+          marginHorizontal: 20,
+          justifyContent: 'center',
+          marginVertical: 10,
+          borderRadius: 0,
+          borderWidth: 1,
+          borderColor: currentTheme.value?.borderColor,
+        },
       }}
       screenProps={{setModalVisible: props.setModalVisible}}>
       <Drawer.Screen

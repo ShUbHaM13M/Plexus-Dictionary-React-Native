@@ -1,12 +1,32 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import Header from '../components/Header';
+import BorderedContainer from '../components/BorderedContainer';
+import PageContainer from '../components/PageContainer';
+import Topbar from '../components/Topbar';
+import {useTheme} from '../contexts/ThemeContext';
 
 const About = ({navigation}) => {
+  const {currentTheme} = useTheme();
+
+  const textColor = {
+    color: currentTheme.value?.text,
+  };
+
   return (
-    <View>
-      <Header navigation={navigation} />
-    </View>
+    <PageContainer>
+      <Topbar
+        title="About"
+        navigation={navigation}
+        hamColor={currentTheme.value?.accent}
+        textColor={textColor}
+      />
+      <BorderedContainer borderColor={currentTheme.value?.borderColor}>
+        <View>
+          <Text>Plexus Dictionary</Text>
+          <Text>Made with ❤ using React Native</Text>
+        </View>
+      </BorderedContainer>
+    </PageContainer>
   );
 };
 

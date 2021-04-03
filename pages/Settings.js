@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Pressable, SafeAreaView} from 'react-native';
-import globalStyles from '../assets/styles';
 import DropDown from '../components/DropDown';
-import Ham from '../components/Ham';
 import theme from '../assets/colors';
 import {useTheme} from '../contexts/ThemeContext';
-// import {useEffect} from 'react';
+import Topbar from '../components/Topbar';
+import PageContainer from '../components/PageContainer';
+import BorderedContainer from '../components/BorderedContainer';
 
 const themeOptions = [theme.lightTheme, theme.darkTheme, theme.retroTheme];
 
@@ -38,27 +38,16 @@ const Settings = ({navigation}) => {
   };
 
   return (
-    <View
-      style={[
-        globalStyles.fullHeight,
-        globalStyles.defaultMargin,
-        styles.container,
-        {backgroundColor: currentTheme.value?.backgroundColor},
-      ]}>
-      <View style={styles.topBar}>
-        <Text style={[styles.label, textColor]}>Settings</Text>
-        <Pressable onPress={navigation.openDrawer}>
-          <Ham color={currentTheme.value?.accent} />
-        </Pressable>
-      </View>
-      <Pressable
-        onPress={() => {
-          setCloseAll(true);
-        }}
-        style={[
-          styles.settingsContainer,
-          {borderColor: currentTheme.value?.borderColor},
-        ]}>
+    <PageContainer>
+      <Topbar
+        hamColor={currentTheme.value?.accent}
+        textColor={textColor}
+        navigation={navigation}
+        title="Settings"
+      />
+      <BorderedContainer
+        borderColor={currentTheme.value?.borderColor}
+        onPress={() => setCloseAll(true)}>
         <SafeAreaView style={styles.settings}>
           <View style={styles.options}>
             <Text style={[styles.optionLabel, textColor]}>Change Theme</Text>
@@ -79,19 +68,14 @@ const Settings = ({navigation}) => {
             />
           </View>
         </SafeAreaView>
-      </Pressable>
-    </View>
+      </BorderedContainer>
+    </PageContainer>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  topBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
   options: {
     width: '100%',
@@ -112,9 +96,6 @@ const styles = StyleSheet.create({
   optionLabel: {
     fontSize: 20,
     marginBottom: 10,
-  },
-  label: {
-    fontSize: 24,
   },
 });
 

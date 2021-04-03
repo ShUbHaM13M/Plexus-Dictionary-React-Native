@@ -60,12 +60,17 @@ const Home = ({navigation}) => {
 
         {loading && (
           <View style={styles.loading}>
-            <ActivityIndicator size="large" color="#000" />
+            <ActivityIndicator
+              size="large"
+              color={currentTheme.value?.accent}
+            />
           </View>
         )}
 
         <View style={styles.definitionContainer}>
-          {!loading && definition.word && <Definition item={definition} />}
+          {!loading && definition.word && (
+            <Definition item={definition} theme={currentTheme} />
+          )}
         </View>
       </View>
     </View>

@@ -3,43 +3,77 @@ import {View, Text, ScrollView, StyleSheet, Image} from 'react-native';
 import globalStyles from '../assets/styles';
 import Divider from './Divider';
 
-const Card = ({item}) => {
+const Card = ({item, theme}) => {
+  const textColor = {
+    color: theme.value?.text,
+  };
+
+  const borderColor = {
+    borderColor: theme.value?.borderColor,
+  };
+
   return (
-    <ScrollView style={styles.scrollview}>
+    <ScrollView
+      style={styles.scrollview}
+      keyboardDismissMode="on-drag"
+      overScrollMode="never">
       {item.definitions &&
         item.definitions.map((word, index) => (
           <View style={styles.card} key={index}>
             {word.image_url && (
-              <Image source={{uri: word.image_url}} style={styles.image} />
+              <Image
+                source={{uri: word.image_url}}
+                style={[styles.image, borderColor]}
+              />
             )}
-            <Text style={[styles.type, globalStyles.fontMinecraft]}>
+            <Text style={[styles.type, globalStyles.fontMinecraft, textColor]}>
               {word.type}
             </Text>
-            <DefDivider />
-            <Text style={[styles.definition, globalStyles.fontMinecraft]}>
+            <DefDivider color={theme.value?.accent} />
+            <Text
+              selectionColor={theme.value?.accent}
+              selectable
+              style={[
+                styles.definition,
+                globalStyles.fontMinecraft,
+                textColor,
+              ]}>
               {word.definition}
             </Text>
             {word.example && (
               <>
-                <DefDivider />
-                <Text style={[styles.example, globalStyles.fontMinecraft]}>
+                <DefDivider color={theme.value?.accent} />
+                <Text
+                  selectable
+                  selectionColor={theme.value?.accent}
+                  style={[
+                    styles.example,
+                    globalStyles.fontMinecraft,
+                    textColor,
+                  ]}>
                   "{word.example}"
                 </Text>
               </>
             )}
-            <Divider opacity={0.4} />
+            <View style={{marginVertical: 10, width: '70%'}}>
+              <Divider opacity={0.6} color={theme.value?.borderColor} />
+            </View>
           </View>
         ))}
     </ScrollView>
   );
 };
 
-const DefDivider = () => {
+const DefDivider = ({color}) => {
+  const backgroundColor = {
+    backgroundColor: color,
+  };
+
   return (
     <View style={styles.divider}>
-      <View style={[styles.line, styles.first]} />
-      <View style={[styles.line, styles.second]} />
-      <View style={[styles.line, styles.third]} />
+      <View style={[styles.line, styles.first, backgroundColor]} />
+      <View style={[styles.line, styles.second, backgroundColor]} />
+      <View style={[styles.line, styles.third, backgroundColor]} />
     </View>
   );
 };
@@ -48,16 +82,16 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
-    marginVertical: 16,
+    marginVertical: 20,
     borderWidth: 2,
-    borderColor: '#0084A5',
   },
   scrollview: {
     marginTop: 10,
+    padding: 10,
   },
   type: {
     width: '100%',
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 4,
   },
   card: {
@@ -65,14 +99,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   definition: {
-    fontSize: 20,
+    fontSize: 22,
     lineHeight: 22,
     fontWeight: '500',
-    marginVertical: 6,
+    alignSelf: 'flex-start',
+    marginVertical: 10,
   },
   example: {
-    fontSize: 16,
+    fontSize: 18,
     marginTop: 8,
+    alignSelf: 'flex-start',
   },
   divider: {
     height: 10,
@@ -81,7 +117,6 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   line: {
-    backgroundColor: '#0084A5',
     marginRight: 5,
   },
   first: {

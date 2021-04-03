@@ -1,16 +1,19 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 
-const Divider = ({width, opacity}) => {
-  return <View style={[styles.divider, {opacity}]} />;
+const Divider = ({opacity, color}) => {
+  return (
+    <View
+      style={[styles.divider, {backgroundColor: color, opacity: opacity || 1}]}
+    />
+  );
 };
 
 const styles = StyleSheet.create({
   divider: {
     alignSelf: 'stretch',
     height: 5,
-    backgroundColor: '#000000aa',
-    marginVertical: 8,
+    marginVertical: 10,
   },
 });
 
