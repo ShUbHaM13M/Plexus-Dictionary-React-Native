@@ -2,7 +2,6 @@ import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import Card from './Card';
 import Divider from './Divider';
-import globalStyles from '../assets/styles';
 
 const Definition = ({item, theme}) => {
   const textColor = {
@@ -15,13 +14,11 @@ const Definition = ({item, theme}) => {
   return (
     <View style={[styles.container, borderColor]}>
       <View style={styles.wrapper}>
-        <Text style={[styles.word, globalStyles.fontMinecraft, textColor]}>
-          {item.word}
-        </Text>
+        <Text style={[styles.word, textColor]}>{item.word}</Text>
         <Text
           selectionColor={theme.value?.accent}
           selectable
-          style={[styles.pronunciation, globalStyles.fontMinecraft, textColor]}>
+          style={[styles.pronunciation, textColor]}>
           Pronounced as: {item.pronunciation}
         </Text>
         <Divider color={theme.value?.borderColor} />

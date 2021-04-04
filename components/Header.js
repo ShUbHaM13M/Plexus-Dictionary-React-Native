@@ -2,11 +2,15 @@ import React from 'react';
 import {View, Text, Image, Pressable, StyleSheet} from 'react-native';
 import globalStyles from '../assets/styles';
 import Ham from './Ham';
+import {useFont} from '../contexts/FontContext';
 
 const Header = ({navigation, theme}) => {
+  const {currentFont} = useFont();
+
   const logoTextStyle = {
     color: theme.value?.text,
     fontSize: 16,
+    fontFamily: currentFont?.fontFamily,
   };
 
   return (
