@@ -1,5 +1,11 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
+import React, {useState, useRef, useEffect} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  Animated,
+} from 'react-native';
 import Searchbar from '../components/Searchbar';
 import fetchWord from '../utils/useFetch';
 import Definition from '../components/Definition';
@@ -8,12 +14,25 @@ import Header from '../components/Header';
 import {useTheme} from '../contexts/ThemeContext';
 
 const Home = ({navigation}) => {
+  const animationVar = useRef(new Animated.Value(0)).current;
   const [word, setWord] = useState('');
   const [definition, setDefiniton] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const {currentTheme} = useTheme();
+  const {currentTheme, previousTheme} = useTheme();
+
+  const animateBgColor = useRef(() => {
+    Animated.timing(animationVar, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: false,
+    }).start(animationVar.setValue(0));
+  });
+
+  useEffect(() => {
+    animateBgColor.current();
+  }, [currentTheme.value?.backgroundColor]);
 
   const searchWord = async () => {
     resetStates();
@@ -36,12 +55,20 @@ const Home = ({navigation}) => {
   }
 
   return (
-    <View
+    <Animated.View
       style={[
         globalStyles.fullHeight,
         globalStyles.defaultMargin,
         styles.container,
-        {backgroundColor: currentTheme.value?.backgroundColor},
+        {
+          backgroundColor: animationVar.interpolate({
+            inputRange: [0, 1],
+            outputRange: [
+              previousTheme.current.value?.backgroundColor,
+              currentTheme.value?.backgroundColor,
+            ],
+          }),
+        },
       ]}>
       <Header navigation={navigation} theme={currentTheme} />
       <View style={globalStyles.fullHeight}>
@@ -73,7 +100,7 @@ const Home = ({navigation}) => {
           )}
         </View>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

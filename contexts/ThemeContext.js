@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useRef} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import theme from '../assets/colors';
 
@@ -32,6 +32,11 @@ async function saveCurrentTheme(value) {
 
 const ThemeProvider = ({children}) => {
   const [currentTheme, setCurrentTheme] = useState(theme.lightTheme);
+  const previousTheme = useRef(currentTheme);
+
+  useEffect(() => {
+    previousTheme.current = currentTheme;
+  });
 
   useEffect(() => {
     getCurrentTheme()
@@ -47,7 +52,7 @@ const ThemeProvider = ({children}) => {
     saveCurrentTheme(currentTheme);
   }, [currentTheme]);
 
-  const value = {currentTheme, setCurrentTheme};
+  const value = {currentTheme, setCurrentTheme, previousTheme};
 
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>

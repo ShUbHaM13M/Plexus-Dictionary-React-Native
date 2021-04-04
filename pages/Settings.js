@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Pressable, SafeAreaView} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
 import DropDown from '../components/DropDown';
 import theme from '../assets/colors';
 import {useTheme} from '../contexts/ThemeContext';
