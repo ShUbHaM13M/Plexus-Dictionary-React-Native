@@ -7,25 +7,31 @@ import {
   Image,
 } from 'react-native';
 
-const Searchbar = ({word, setWord, searchWord, theme}) => {
+const Searchbar = ({word, setWord, searchWord, theme, font, resetStates}) => {
   const [isFocused, setIsFocused] = useState(false);
+  const focusedStyle = {
+    borderStyle: 'solid',
+    borderColor: theme?.value?.accent,
+  };
+  const blurredStyle = {
+    borderStyle: 'dashed',
+    borderColor: theme?.value?.text,
+  };
+
+  const textInputStyle = {
+    color: theme?.value?.text,
+    fontFamily: font?.value?.font,
+    fontSize: 18,
+  };
 
   return (
     <View
       style={[
         styles.searchContainer,
-        isFocused === true
-          ? {
-              borderStyle: 'solid',
-              borderColor: theme.value?.accent,
-            }
-          : {
-              borderStyle: 'dashed',
-              borderColor: theme.value?.text,
-            },
+        isFocused === true ? focusedStyle : blurredStyle,
       ]}>
       <TextInput
-        style={[styles.searchBar, {color: theme.value?.text}]}
+        style={[styles.searchBar, textInputStyle]}
         placeholder="Search"
         placeholderTextColor={`${theme.value?.text}44`}
         onChangeText={text => setWord(text)}
@@ -35,7 +41,10 @@ const Searchbar = ({word, setWord, searchWord, theme}) => {
           }
         }}
         value={word}
-        onFocus={() => setIsFocused(true)}
+        onFocus={() => {
+          setIsFocused(true);
+          resetStates();
+        }}
         onBlur={() => setIsFocused(false)}
       />
       <TouchableOpacity onPress={searchWord}>

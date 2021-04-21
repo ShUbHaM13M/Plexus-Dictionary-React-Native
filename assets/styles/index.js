@@ -2,15 +2,24 @@ import {StyleSheet} from 'react-native';
 
 export const font = {
   minecraft: {
-    fontFamily: 'Minecraft-Regular',
+    label: 'Minecraft',
+    value: {
+      font: 'Minecraft-Regular',
+    },
   },
   montserrat: {
-    fontFamily: 'Montserrat-Regular',
-    fontBold: 'Montserrat-Bold',
+    label: 'Montserrat',
+    value: {
+      font: 'Montserrat-Regular',
+      fontBold: 'Montserrat-Bold',
+    },
   },
   nunito: {
-    fontFamily: 'Nunito-Regular',
-    fontBold: 'Nunito-Bold',
+    label: 'Nunito',
+    value: {
+      font: 'Nunito-Regular',
+      fontBold: 'Nunito-Bold',
+    },
   },
 };
 
@@ -19,11 +28,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   defaultMargin: {
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     paddingVertical: 30,
   },
   justifyCenter: {
     justifyContent: 'center',
+  },
+  alignCenter: {
+    alignItems: 'center',
+  },
+  errorColor: {
+    color: '#fc655a',
   },
 });
 

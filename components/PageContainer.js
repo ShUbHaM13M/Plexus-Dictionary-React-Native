@@ -1,9 +1,8 @@
 import React, {useRef, useEffect} from 'react';
 import {Animated} from 'react-native';
-import globalStyles from '../assets/styles';
 import {useTheme} from '../contexts/ThemeContext';
 
-const PageContainer = ({children}) => {
+const PageContainer = ({children, styles}) => {
   const {currentTheme, previousTheme} = useTheme();
   const animationVar = useRef(new Animated.Value(0)).current;
 
@@ -17,19 +16,18 @@ const PageContainer = ({children}) => {
 
   useEffect(() => {
     animateBgColor.current();
-  }, [currentTheme.value?.backgroundColor]);
+  }, [currentTheme?.value?.backgroundColor]);
 
   return (
     <Animated.View
       style={[
-        globalStyles.fullHeight,
-        globalStyles.defaultMargin,
+        [...styles],
         {
           backgroundColor: animationVar.interpolate({
             inputRange: [0, 1],
             outputRange: [
-              previousTheme.current.value?.backgroundColor,
-              currentTheme.value?.backgroundColor,
+              previousTheme.current?.value?.backgroundColor,
+              currentTheme?.value?.backgroundColor,
             ],
           }),
         },

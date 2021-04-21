@@ -3,9 +3,10 @@ import {View, Text, ScrollView, StyleSheet, Image} from 'react-native';
 import globalStyles from '../assets/styles';
 import Divider from './Divider';
 
-const Card = ({item, theme}) => {
-  const textColor = {
+const Card = ({item, theme, font}) => {
+  const text = {
     color: theme.value?.text,
+    fontFamily: font.value?.font,
   };
 
   const borderColor = {
@@ -26,18 +27,16 @@ const Card = ({item, theme}) => {
                 style={[styles.image, borderColor]}
               />
             )}
-            <Text style={[styles.type, globalStyles.fontMinecraft, textColor]}>
-              {word.type}
-            </Text>
+            {word.type && (
+              <Text style={[styles.type, globalStyles.fontMinecraft, text]}>
+                {word.type}
+              </Text>
+            )}
             <DefDivider color={theme.value?.accent} />
             <Text
               selectionColor={theme.value?.accent}
               selectable
-              style={[
-                styles.definition,
-                globalStyles.fontMinecraft,
-                textColor,
-              ]}>
+              style={[styles.definition, globalStyles.fontMinecraft, text]}>
               {word.definition}
             </Text>
             {word.example && (
@@ -46,11 +45,7 @@ const Card = ({item, theme}) => {
                 <Text
                   selectable
                   selectionColor={theme.value?.accent}
-                  style={[
-                    styles.example,
-                    globalStyles.fontMinecraft,
-                    textColor,
-                  ]}>
+                  style={[styles.example, globalStyles.fontMinecraft, text]}>
                   "{word.example}"
                 </Text>
               </>

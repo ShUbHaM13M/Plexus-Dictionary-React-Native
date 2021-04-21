@@ -11,7 +11,6 @@ import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import ThemeProvider from './contexts/ThemeContext';
 import FontProvider from './contexts/FontContext';
 import SplashScreen from 'react-native-splash-screen';
-
 import globalStyles from './assets/styles';
 import {NavigationContainer} from '@react-navigation/native';
 import RootStack from './navigation/Navigator';

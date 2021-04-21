@@ -13,11 +13,13 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.1.0")
+        classpath('com.android.tools.build:gradle:4.1.3')
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
+
+def googlePlayServicesVersion = '18.1.0'
 
 allprojects {
     repositories {
@@ -34,5 +36,22 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://www.jitpack.io' }
+
+        configurations.all {
+            resolutionStrategy {
+                // react-native-admob
+                force "com.google.android.gms:play-services-ads:$googlePlayServicesVersion"
+                // react-native-maps
+                force "com.google.android.gms:play-services-base:$googlePlayServicesVersion"
+                force "com.google.android.gms:play-services-maps:$googlePlayServicesVersion"
+                // react-native-onesignal
+                force "com.google.android.gms:play-services-gcm:$googlePlayServicesVersion"
+                force "com.google.android.gms:play-services-analytics:$googlePlayServicesVersion"
+                force "com.google.android.gms:play-services-location:$googlePlayServicesVersion"
+                // react-native-google-sign-in
+                force "com.google.android.gms:play-services-auth:$googlePlayServicesVersion"
+            }
+        }
+
     }
 }

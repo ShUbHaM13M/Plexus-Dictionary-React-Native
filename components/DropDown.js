@@ -1,7 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-const DropDown = ({options, defaultSelected, close, changeValue, theme}) => {
+const DropDown = ({
+  options,
+  defaultSelected,
+  close,
+  changeValue,
+  theme,
+  font,
+}) => {
   const [showOptions, setShowOptions] = useState(false);
   const [selectedOption, setSelectedOption] = useState(
     defaultSelected || options[0],
@@ -17,6 +24,7 @@ const DropDown = ({options, defaultSelected, close, changeValue, theme}) => {
 
   const textColor = {
     color: theme.value?.text,
+    fontFamily: font.value?.font,
   };
 
   useEffect(() => {
@@ -37,41 +45,46 @@ const DropDown = ({options, defaultSelected, close, changeValue, theme}) => {
   };
 
   return (
-    <View style={styles.dropdown}>
-      <TouchableOpacity
-        style={[styles.selectedOption, borderColor]}
-        onPress={toggleOptions}>
-        <View>
-          <Text style={[{fontSize: 18}, textColor]}>
-            {selectedOption.label}
-          </Text>
-        </View>
-      </TouchableOpacity>
-
-      {/* Rendering options here.. */}
+    <>
+      <View style={(styles.dropdown, {height: 80})}>
+        <TouchableOpacity
+          style={[styles.selectedOption, borderColor]}
+          onPress={toggleOptions}>
+          <View style={{flex: 1}}>
+            <Text style={[{fontSize: 18, flex: 1}, textColor]}>
+              {selectedOption.label}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
 
       {showOptions && (
-        <FlatList
-          style={[styles.options, borderColor, backgroundColor]}
-          data={options}
-          renderItem={({item, index}) => (
+        <View style={[styles.options, borderColor, backgroundColor]}>
+          {options.map((option, index) => (
             <TouchableOpacity
+              key={index}
               style={[
                 styles.option,
                 index === options.length - 1 ? styles.lastOption : '',
                 borderColor,
-                item.label === selectedOption.label
+                option.label === selectedOption.label
                   ? {backgroundColor: theme.value?.accent}
                   : '',
               ]}
-              onPress={() => onSelectedOptionChange(item)}>
-              <Text style={[styles.optionLabel, textColor]}>{item.label}</Text>
+              onPress={() => onSelectedOptionChange(option)}>
+              <Text
+                style={[
+                  styles.optionLabel,
+                  textColor,
+                  {fontFamily: option?.value?.font || font?.value?.font},
+                ]}>
+                {option.label}
+              </Text>
             </TouchableOpacity>
-          )}
-          keyExtractor={(_, index) => index}
-        />
+          ))}
+        </View>
       )}
-    </View>
+    </>
   );
 };
 
@@ -79,6 +92,7 @@ const styles = StyleSheet.create({
   dropdown: {
     marginTop: 10,
     width: '100%',
+    flex: 1,
   },
   selectedOption: {
     borderWidth: 2,
@@ -86,16 +100,12 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     marginBottom: 10,
     zIndex: 1,
+    flex: 1,
   },
   options: {
-    position: 'absolute',
-    top: '100%',
-    width: '100%',
-    maxHeight: 250,
     borderWidth: 2,
     paddingVertical: 10,
-    elevation: 2,
-    zIndex: 20,
+    flex: 1,
   },
   option: {
     paddingVertical: 20,

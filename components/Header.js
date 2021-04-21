@@ -2,15 +2,13 @@ import React from 'react';
 import {View, Text, Image, Pressable, StyleSheet} from 'react-native';
 import globalStyles from '../assets/styles';
 import Ham from './Ham';
-import {useFont} from '../contexts/FontContext';
 
-const Header = ({navigation, theme}) => {
-  const {currentFont} = useFont();
-
+const Header = ({navigation, theme, font}) => {
   const logoTextStyle = {
     color: theme.value?.text,
     fontSize: 16,
-    fontFamily: currentFont?.fontFamily,
+    marginBottom: 5,
+    fontFamily: font?.value?.font,
   };
 
   return (
@@ -36,7 +34,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: 10,
     alignItems: 'center',
   },
   logo: {
