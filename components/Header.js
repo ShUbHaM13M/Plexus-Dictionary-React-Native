@@ -5,7 +5,7 @@ import Ham from './Ham';
 
 const Header = ({navigation, theme, font}) => {
   const logoTextStyle = {
-    color: theme.value?.text,
+    color: theme?.value?.text,
     fontSize: 16,
     marginBottom: 5,
     fontFamily: font?.value?.font,
@@ -24,7 +24,7 @@ const Header = ({navigation, theme, font}) => {
         </View>
       </View>
       <Pressable onPress={() => navigation.openDrawer()}>
-        <Ham color={theme.value?.accent} />
+        <Ham color={theme?.value?.accent} />
       </Pressable>
     </View>
   );

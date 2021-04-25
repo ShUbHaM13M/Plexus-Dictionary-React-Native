@@ -4,7 +4,7 @@ import {View, StyleSheet} from 'react-native';
 const Ham = ({color}) => {
   const backgroundColor = {
     backgroundColor: color,
-  }
+  };
   return (
     <View style={styles.container}>
       <View style={[styles.line, backgroundColor]} />

@@ -41,9 +41,11 @@ const ThemeProvider = ({children}) => {
   useEffect(() => {
     getCurrentTheme()
       .then(ret => {
-        if (ret !== null) {
+        if (ret !== undefined) {
           setCurrentTheme(ret);
+          return;
         }
+        setCurrentTheme(theme.lightTheme);
       })
       .catch(e => console.log(e));
   }, []);

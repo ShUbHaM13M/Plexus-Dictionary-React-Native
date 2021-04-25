@@ -8,7 +8,7 @@ export function useFont() {
   return useContext(FontContext);
 }
 
-async function getCurrentTheme() {
+async function getCurrentFont() {
   try {
     const value = await AsyncStorage.getItem('currentFont');
     let ret;
@@ -21,8 +21,9 @@ async function getCurrentTheme() {
   }
 }
 
-async function saveCurrentTheme(value) {
+async function saveCurrentFont(value) {
   try {
+    await AsyncStorage.removeItem('currentFont');
     await AsyncStorage.setItem('currentFont', JSON.stringify(value));
   } catch (e) {
     console.log(e.message);
@@ -33,9 +34,9 @@ const FontProvider = ({children}) => {
   const [currentFont, setCurrentFont] = useState(font.minecraft);
 
   useEffect(() => {
-    getCurrentTheme()
+    getCurrentFont()
       .then(ret => {
-        if (ret !== null) {
+        if (ret !== undefined) {
           setCurrentFont(ret);
           return;
         }
@@ -45,7 +46,7 @@ const FontProvider = ({children}) => {
   }, []);
 
   useEffect(() => {
-    saveCurrentTheme(currentFont);
+    saveCurrentFont(currentFont);
   }, [currentFont]);
 
   const value = {currentFont, setCurrentFont};

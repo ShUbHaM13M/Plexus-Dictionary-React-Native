@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import DropDown from '../components/DropDown';
 import theme from '../assets/colors';
@@ -29,20 +29,20 @@ const Settings = ({navigation}) => {
   };
 
   const textColor = {
-    color: currentTheme.value?.text,
-    fontFamily: currentFont.value?.font,
+    color: currentTheme?.value?.text,
+    fontFamily: currentFont?.value?.font,
   };
 
   return (
     <PageContainer
       styles={[globalStyles.fullHeight, globalStyles.defaultMargin]}>
       <Topbar
-        hamColor={currentTheme.value?.accent}
+        hamColor={currentTheme?.value?.accent}
         textColor={textColor}
         navigation={navigation}
         title="Settings"
       />
-      <BorderedContainer borderColor={currentTheme.value?.borderColor}>
+      <BorderedContainer borderColor={currentTheme?.value?.borderColor}>
         <ScrollView style={styles.settings}>
           <View style={styles.options}>
             <Text style={[styles.optionLabel, textColor]}>Change Theme</Text>

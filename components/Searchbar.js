@@ -33,7 +33,9 @@ const Searchbar = ({word, setWord, searchWord, theme, font, resetStates}) => {
       <TextInput
         style={[styles.searchBar, textInputStyle]}
         placeholder="Search"
-        placeholderTextColor={`${theme.value?.text}44`}
+        placeholderTextColor={
+          theme.value ? `${theme.value?.text}44` : '#ffffff00'
+        }
         onChangeText={text => setWord(text)}
         onKeyPress={event => {
           if (event.key === 'Enter') {

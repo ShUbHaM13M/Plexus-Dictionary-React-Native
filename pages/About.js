@@ -60,7 +60,7 @@ const About = ({navigation}) => {
       <Topbar
         title="About"
         navigation={navigation}
-        hamColor={currentTheme.value?.accent}
+        hamColor={currentTheme?.value?.accent}
         textColor={text}
       />
       <BorderedContainer borderColor={currentTheme.value?.borderColor}>
@@ -74,7 +74,7 @@ const About = ({navigation}) => {
               text,
               styles.main,
               styles.textCenter,
-              {color: currentTheme.value?.borderColor},
+              {color: currentTheme?.value?.borderColor},
             ]}>
             Plexus Dictionary
           </Text>
@@ -89,7 +89,7 @@ const About = ({navigation}) => {
             </TouchableOpacity>
           </View>
           <Text style={[text, styles.size, styles.textCenter, footer]}>
-            Made with <Text style={styles.heartColor}>❣</Text> in India
+            Made with <Text style={styles.heartColor}>❣</Text> in India 🇮🇳
           </Text>
         </View>
       </BorderedContainer>

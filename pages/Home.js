@@ -64,7 +64,7 @@ const Home = ({navigation}) => {
   return (
     <>
       <View
-        styles={[
+        style={[
           globalStyles.fullHeight,
           globalStyles.defaultMargin,
           globalStyles.justifyCenter,
