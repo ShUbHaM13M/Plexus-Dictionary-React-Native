@@ -12,11 +12,11 @@ import Divider from './Divider';
 
 const Definition = ({item, theme, font}) => {
   const text = {
-    color: theme.value?.text,
-    fontFamily: font.value?.font,
+    color: theme?.value?.text,
+    fontFamily: font?.value?.font,
   };
   const borderColor = {
-    borderColor: theme.value?.borderColor,
+    borderColor: theme?.value?.borderColor,
   };
 
   const shareWord = async () => {

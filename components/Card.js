@@ -5,12 +5,12 @@ import Divider from './Divider';
 
 const Card = ({item, theme, font}) => {
   const text = {
-    color: theme.value?.text,
-    fontFamily: font.value?.font,
+    color: theme?.value?.text,
+    fontFamily: font?.value?.font,
   };
 
   const borderColor = {
-    borderColor: theme.value?.borderColor,
+    borderColor: theme?.value?.borderColor,
   };
 
   return (
@@ -32,26 +32,26 @@ const Card = ({item, theme, font}) => {
                 {word.type}
               </Text>
             )}
-            <DefDivider color={theme.value?.accent} />
+            <DefDivider color={theme?.value?.accent} />
             <Text
-              selectionColor={theme.value?.accent}
+              selectionColor={theme?.value?.accent}
               selectable
               style={[styles.definition, globalStyles.fontMinecraft, text]}>
               {word.definition} {word.emoji}
             </Text>
             {word.example && (
               <>
-                <DefDivider color={theme.value?.accent} />
+                <DefDivider color={theme?.value?.accent} />
                 <Text
                   selectable
-                  selectionColor={theme.value?.accent}
+                  selectionColor={theme?.value?.accent}
                   style={[styles.example, globalStyles.fontMinecraft, text]}>
                   "{word.example}"
                 </Text>
               </>
             )}
             <View style={{marginVertical: 10, width: '70%'}}>
-              <Divider opacity={0.6} color={theme.value?.borderColor} />
+              <Divider opacity={0.6} color={theme?.value?.borderColor} />
             </View>
           </View>
         ))}

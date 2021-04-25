@@ -11,7 +11,6 @@ import Error from '../utils/Error';
 import {useNetInfo} from '@react-native-community/netinfo';
 import {AdMobBanner} from 'react-native-admob';
 import ConnectionError from '../components/ConnectionError';
-import PageContainer from '../components/PageContainer';
 import Loading from '../components/Loading';
 
 const Home = ({navigation}) => {
@@ -64,11 +63,12 @@ const Home = ({navigation}) => {
 
   return (
     <>
-      <PageContainer
+      <View
         styles={[
           globalStyles.fullHeight,
           globalStyles.defaultMargin,
           globalStyles.justifyCenter,
+          {backgroundColor: currentTheme?.value?.backgroundColor},
         ]}>
         <Header
           navigation={navigation}
@@ -120,7 +120,7 @@ const Home = ({navigation}) => {
         ) : (
           <ConnectionError fontStyles={fontStyles} />
         )}
-      </PageContainer>
+      </View>
       {netInfo.isConnected === true && (
         <AdMobBanner
           bannerSize="smartBannerPortrait"
